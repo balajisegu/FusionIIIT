@@ -104,7 +104,6 @@ function editStudent() {
     }
 }
 
-<<<<<<< HEAD
 
 
 function editCatalog2() {
@@ -174,26 +173,3 @@ function editCatalog4() {
 }
 
 
-=======
-function editCatalog() {
-    var buttonValue = $("#editButton").val()
-    var aboutSpan = $("#aboutSpan").text().trim();
-
-    if(buttonValue == "Edit") {
-        $("#editButton").val("Save");
-
-        $("#aboutTextarea").val(aboutSpan);
-        $("#aboutTextarea").show();
-        $("#aboutSpan").hide();
-    }
-
-    else if($("#editButton").val("Save")) {
-        $("#editButton").val("Edit");
-
-        var aboutSpan = $("#aboutTextarea").val().trim();
-        $("#aboutSpan").text(aboutSpan);
-        $("#aboutTextarea").hide();
-        $("#aboutSpan").show();
-    }
-}
->>>>>>> e3ac96ceedffd47377b5269957e46456f777ea3b

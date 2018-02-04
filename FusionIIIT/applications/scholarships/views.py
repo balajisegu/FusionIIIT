@@ -1,6 +1,5 @@
-from django.shortcuts import render
+# from django.shortcuts import render
 
-<<<<<<< HEAD
 # Create your views here.
 # from django.shortcuts import render
 
@@ -394,10 +393,3 @@ def submitted_form(request):
                   {'mcm': mcm, 'student': student,
                    'awards': awards, 'gold': gold,
                    'silver': silver, 'dandm': dandm})
-=======
-
-def spacs(request):
-    context = {}
-
-    return render(request, "scholarshipsModule/scholarships.html", context)
->>>>>>> e3ac96ceedffd47377b5269957e46456f777ea3b
