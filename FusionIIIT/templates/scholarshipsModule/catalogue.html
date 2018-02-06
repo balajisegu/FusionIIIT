@@ -9,7 +9,7 @@
 
     <div class="ui active tab" data-tab="catalog">
         <div class="ui vertical segment">
-        
+
             <div class="ui stackable doubling grid">
                 <div class="four wide column">
                     <div class="ui secondary vertical pointing menu">
@@ -32,16 +32,13 @@
                 </div>
 
                 <div class="eleven wide column">
-                    <form action="" method="post" id="a1">
-                        {% csrf_token %}
                     <div class="ui active tab" data-tab="award1">
                         <h4 class="ui dividing header" style="margin-bottom: 16px;">
                             Award #1
 
                             <input type="button"
                                    id="editButton"
-                                   class="ui red mini button right floated" onclick="editCatalog()"
-                                   value = "Edit" name="a1">
+                                   class="ui red mini button right floated" onclick="editCatalog()"  value = "Edit">
                             </input>
                         </h4>
 
@@ -56,126 +53,14 @@
                                       id="aboutTextarea" hidden></textarea>
                         </div>
                     </div>
-                    </form>
-                    <form action="" method="post">
-                        {% csrf_token %}
+
                     <div class="ui tab" data-tab="award2">
-                        <h4 class="ui dividing header" style="margin-bottom: 16px;">
-                            Award #2
-
-                            <input type="button"
-                                   id="editButton2"
-                                   class="ui red mini button right floated" onclick="editCatalog2()"
-                                   value = "Edit">
-                            </input>
-                        </h4>
-
-                        <span id="aboutSpan2">
-                            Sample Data about the Award2!
-                        </span>
-
-                        <div class="textarea">
-                            <textarea rows=5
-                                      type="text"
-                                      style="width: 100%;"
-                                      id="aboutTextarea2" hidden></textarea>
-                        </div>
+                        Make like Above!
                     </div>
-                </form>
-             <div class="ui tab" data-tab="scholarship1">
-                 <form action="" method="post">
-                     {% csrf_token %}
-                        <h4 class="ui dividing header" style="margin-bottom: 16px;">
-                            Scholarship #1
-
-                            <input type="button"
-                                   id="editButton3"
-                                   class="ui red mini button right floated" onclick="editCatalog3()"
-                                   value = "Edit">
-                            </input>
-                        </h4>
-
-                        <span id="aboutSpan3">
-                            Sample Data about the Award2!
-                        </span>
-
-                        <div class="textarea">
-                            <textarea rows=5
-                                      type="text"
-                                      style="width: 100%;"
-                                      id="aboutTextarea3" hidden></textarea>
-                        </div>
-                    </div>
-            </form> 
-            <form action="" method="post">
-                {% csrf_token %}
-             <div class="ui tab" data-tab="scholarship2">
-                        <h4 class="ui dividing header" style="margin-bottom: 16px;">
-                            Award #4
-
-                            <input type="button"
-                                   id="editButton4"
-                                   class="ui red mini button right floated" onclick="editCatalog4()"
-                                   value = "Edit">
-                            </input>
-                        </h4>
-
-                        <span id="aboutSpan4">
-                            Sample Data about the Award2!
-                        </span>
-
-                        <div class="textarea">
-                            <textarea rows=5
-                                      type="text"
-                                      style="width: 100%;"
-                                      id="aboutTextarea4" hidden></textarea>
-                        </div>
-                    </div>
-        </form>
                 </div>
                 <div class="column"></div>
             </div>
 
         </div>
     </div>
-    <script>
-        function editCatalog() {
-    var buttonValue = $("#editButton").val()
-    var aboutSpan = $("#aboutSpan").text().trim();
-
-    if(buttonValue == "Edit") {
-        $("#editButton").val("Save");
-
-        $("#aboutTextarea").val(aboutSpan);
-        $("#aboutTextarea").show();
-        $("#aboutSpan").hide();
-    }
-
-    else if($("#editButton").val("Save")) {
-        $("#editButton").val("Edit");
-
-        var aboutSpan = $("#aboutTextarea").val().trim();
-        $("#aboutSpan").text(aboutSpan);
-        $("#aboutTextarea").hide();
-        $("#aboutSpan").show();
-    }
-}
-        
-    </script>
-    <script>
-        $(document).on('submit','a1',function(e){
-            e.preventDefault()
-            $.ajax({
-                type: 'POST',
-                url:'/spacs/convener_view/',
-                data:{
-                    award:$('#aboutspan').val(),
-            },
-            success:function(){
-                alert("Mcm catalogue updated");
-            }
-            })
-        });
-        
-    </script>
 {% endblock %}

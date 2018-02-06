@@ -75,15 +75,72 @@ def convener_view(request):
             award = request.POST['award']
             Award_and_scholarship.objects.filter(award_name="Mcm").update(catalog=award)
             return HttpResponse('')
-        
-        elif 'McmButton' in request.POST:
-            return HttpResponseRedirect('/spacs/submitted_forms')
-        elif 'goldButton' in request.POST:
-            return HttpResponseRedirect('/spacs/submitted_forms')
-        elif 'silverButton' in request.POST:
-            return HttpResponseRedirect('/spacs/submitted_forms')
-        elif 'dmButton' in request.POST:
-            return HttpResponseRedirect('/spacs/submitted_forms')
+
+        elif 'Accept_mcm' in request.POST:
+            pk = request.POST.get('id')
+            award = Mcm.objects.get(id=pk).award_id
+            student_id = Mcm.objects.get(id=pk).student
+            year = datetime.datetime.now().year
+            Mcm.objects.filter(id=pk).update(status='Accept')
+            Previous_winner.objects.create(
+                student=student_id,
+                year=year,
+                award_id=award
+            )
+            return HttpResponse('updated sucessfully')
+        elif 'Reject_mcm' in request.POST:
+            pk = request.POST.get('id')
+            Mcm.objects.filter(id=pk).update(status='Reject')
+            return HttpResponse('updated Successfully')
+
+        elif 'Accept_gold' in request.POST:
+            pk = request.POST.get('id')
+            Director_gold.objects.filter(id=pk).update(status='Accept')
+            award = Director_gold.objects.get(id=pk).award_id
+            student_id = Director_gold.objects.get(id=pk).student
+            Previous_winner.objects.create(
+                student=student_id,
+                year=year,
+                award_id=award
+            )
+            return HttpResponse('updated sucessfully')
+        elif 'Reject_gold' in request.POST:
+            pk = request.POST.get('id')
+            Director_gold.objects.filter(id=pk).update(status='Reject')
+            return HttpResponse('updated Successfully')
+
+        elif 'Accept_silver' in request.POST:
+            pk = request.POST.get('id')
+            Director_silver.objects.filter(id=pk).update(status='Accept')
+            award = Director_silver.objects.get(id=pk).award_id
+            student_id = Director_silver.objects.get(id=pk).student
+            Previous_winner.objects.create(
+                student=student_id,
+                year=year,
+                award_id=award
+            )
+            return HttpResponse('updated sucessfully')
+        elif 'Reject_silver' in request.POST:
+            pk = request.POST.get('id')
+            Director_silver.objects.filter(id=pk).update(status='Reject')
+            return HttpResponse('updated Successfully')
+
+        elif 'Accept_dm' in request.POST:
+            pk = request.POST.get('id')
+            Proficiency_dm.objects.filter(id=pk).update(status='Accept')
+            award = Proficiency_dm.objects.get(id=pk).award_id
+            student_id = Proficiency_dm.objects.get(id=pk).student
+            Previous_winner.objects.create(
+                student=student_id,
+                year=year,
+                award_id=award
+            )
+            return HttpResponse('updated sucessfully')
+        elif 'Rejec_dm' in request.POST:
+            pk = request.POST.get('id')
+            Proficiency_dm.objects.filter(id=pk).update(status='Reject')
+            return HttpResponse('updated Successfully')
+
 
     else:
         mcm = Mcm.objects.all()
@@ -98,69 +155,17 @@ def convener_view(request):
         gold = Director_gold.objects.all()
         silver = Director_silver.objects.all()
         dandm = Proficiency_dm.objects.all()
-    return render(request, 'scholarshipsModule/scholarships_convener.html',
-                  {'mcm': mcm, 'source': source, 'time': time, 'ch': ch, 'awards': awards,
+        context={'mcm': mcm, 'source': source, 'time': time, 'ch': ch, 'awards': awards,
                    'spi': spi, 'student': student, 'winners': winners, 'release': release,
-                   'gold': gold, 'silver': silver, 'dandm': dandm})
+                   'gold': gold, 'silver': silver, 'dandm': dandm}
+                   
+    return render(request, 'scholarshipsModule/scholarships_convener.html',context)
 
 
 @login_required(login_url='/accounts/login')
-def staff_view(request):
-    if request.method == 'POST':
-        if 'McmButtona' in request.POST:
-            return HttpResponseRedirect('/spacs/submitted_form')
-        elif 'goldButtona' in request.POST:
-            return HttpResponseRedirect('/spacs/submitted_form')
-        elif 'silverButtona' in request.POST:
-            return HttpResponseRedirect('/spacs/submitted_form')
-        elif 'dmButtona' in request.POST:
-            return HttpResponseRedirect('/spacs/submitted_form')
-    else:
-        winners = Previous_winner.objects.all()
-    return render(request, 'scholarshipsModule/scholarships_staff.html', {'winners': winners})
-
-
-@login_required
 def student_view(request):
     if request.method == 'POST':
-        if 'MCM' in request.POST:
-            return HttpResponseRedirect('/spacs/apply_form/')
-
-        elif 'GOLD' in request.POST:
-            return HttpResponseRedirect('/spacs/apply_form')
-
-        elif 'SILVER' in request.POST:
-            return HttpResponseRedirect('/spacs/apply_form')
-
-        elif 'PROFICIENCY' in request.POST:
-            return HttpResponseRedirect('/spacs/apply_form')
-    else:
-        mcm = Mcm.objects.all()
-        ch = Constants.batch
-        time = Constants.time
-        release = Release.objects.all()
-        winners = Previous_winner.objects.all()
-        spi = Spi.objects.all()
-        student = Student.objects.all()
-        awards = Award_and_scholarship.objects.all()
-        gold = Director_gold.objects.all()
-        silver = Director_silver.objects.all()
-        dandm = Proficiency_dm.objects.all()
-    return render(request, 'scholarshipsModule/scholarships_student.html',
-                  {'mcm': mcm, 'time': time, 'ch': ch, 'awards': awards, 'spi': spi,
-                   'student': student, 'winners': winners, 'release': release,
-                   'gold': gold, 'silver': silver, 'dandm': dandm})
-
-
-        
-        
-    
-@login_required(login_url='/accounts/login')
-def apply_form(request):
-    if request.method == 'POST':
         if 'Submit_mcm' in request.POST:
-            # category = request.POST.get('category')
-            # father_name = request.POST.get('father_name')
             father_occ = request.POST.get('father_occ')
             mother_occ = request.POST.get('mother_occ')
             brother_name = request.POST.get('brother_name')
@@ -174,8 +179,6 @@ def apply_form(request):
             student = request.user.extrainfo.student
             annual_income = income_father + income_mother + income_other
             Mcm.objects.create(
-                # category = category,
-                # father_name = father_name,
                 father_occ=father_occ,
                 mother_occ=mother_occ,
                 brother_name=brother_name,
@@ -251,100 +254,24 @@ def apply_form(request):
 
     else:
         mcm = Mcm.objects.all()
-        mother_occ = Constants.MOTHER_OCC_CHOICES
-        source = Constants.father_occ_choice
+        ch = Constants.batch
+        time = Constants.time
+        release = Release.objects.all()
+        winners = Previous_winner.objects.all()
+        spi = Spi.objects.all()
+        student = Student.objects.all()
+        awards = Award_and_scholarship.objects.all()
         gold = Director_gold.objects.all()
         silver = Director_silver.objects.all()
         dandm = Proficiency_dm.objects.all()
-        awards = Award_and_scholarship.objects.all()
-        student = Student.objects.all()
-    return render(request, 'scholarshipsModule/apply.html',
-                  {'mcm': mcm, 'student': student, 'mother_occ': mother_occ,
-                   'source': source, 'awards': awards, 'gold': gold,
-                   'silver': silver, 'dandm': dandm})
-
-
-@login_required(login_url='/accounts/login')
-def submitted_forms(request):
-    if request.method == 'POST':
-        if 'Accept_mcm' in request.POST:
-            pk = request.POST.get('id')
-            award = Mcm.objects.get(id=pk).award_id
-            student_id = Mcm.objects.get(id=pk).student
-            year = datetime.datetime.now().year
-            Mcm.objects.filter(id=pk).update(status='Accept')
-            Previous_winner.objects.create(
-                student=student_id,
-                year=year,
-                award_id=award
-            )
-            return HttpResponse('updated sucessfully')
-        elif 'Reject_mcm' in request.POST:
-            pk = request.POST.get('id')
-            Mcm.objects.filter(id=pk).update(status='Reject')
-            return HttpResponse('updated Successfully')
-
-        elif 'Accept_gold' in request.POST:
-            pk = request.POST.get('id')
-            Director_gold.objects.filter(id=pk).update(status='Accept')
-            award = Director_gold.objects.get(id=pk).award_id
-            student_id = Director_gold.objects.get(id=pk).student
-            Previous_winner.objects.create(
-                student=student_id,
-                year=year,
-                award_id=award
-            )
-            return HttpResponse('updated sucessfully')
-        elif 'Reject_gold' in request.POST:
-            pk = request.POST.get('id')
-            Director_gold.objects.filter(id=pk).update(status='Reject')
-            return HttpResponse('updated Successfully')
-
-        elif 'Accept_silver' in request.POST:
-            pk = request.POST.get('id')
-            Director_silver.objects.filter(id=pk).update(status='Accept')
-            award = Director_silver.objects.get(id=pk).award_id
-            student_id = Director_silver.objects.get(id=pk).student
-            Previous_winner.objects.create(
-                student=student_id,
-                year=year,
-                award_id=award
-            )
-            return HttpResponse('updated sucessfully')
-        elif 'Reject_silver' in request.POST:
-            pk = request.POST.get('id')
-            Director_silver.objects.filter(id=pk).update(status='Reject')
-            return HttpResponse('updated Successfully')
-
-        elif 'Accept_dm' in request.POST:
-            pk = request.POST.get('id')
-            Proficiency_dm.objects.filter(id=pk).update(status='Accept')
-            award = Proficiency_dm.objects.get(id=pk).award_id
-            student_id = Proficiency_dm.objects.get(id=pk).student
-            Previous_winner.objects.create(
-                student=student_id,
-                year=year,
-                award_id=award
-            )
-            return HttpResponse('updated sucessfully')
-        elif 'Rejec_dm' in request.POST:
-            pk = request.POST.get('id')
-            Proficiency_dm.objects.filter(id=pk).update(status='Reject')
-            return HttpResponse('updated Successfully')
-    else:
-        mcm = Mcm.objects.all()
-        gold = Director_gold.objects.all()
-        silver = Director_silver.objects.all()
-        dandm = Proficiency_dm.objects.all()
-        student = Student.objects.all()
-        awards = Award_and_scholarship.objects.all()
-    return render(request, 'scholarshipsModule/submit.html',
-                  {'mcm': mcm, 'student': student, 'awards': awards,
+    return render(request, 'scholarshipsModule/scholarships_student.html',
+                  {'mcm': mcm, 'time': time, 'ch': ch, 'awards': awards, 'spi': spi,
+                   'student': student, 'winners': winners, 'release': release,
                    'gold': gold, 'silver': silver, 'dandm': dandm})
 
 
 @login_required(login_url='/accounts/login')
-def submitted_form(request):
+def staff_view(request):
     if request.method == 'POST':
         if 'Verify_mcm' in request.POST:
             pk = request.POST.get('id')
@@ -388,8 +315,9 @@ def submitted_form(request):
         dandm = Proficiency_dm.objects.all()
         student = Student.objects.all()
         awards = Award_and_scholarship.objects.all()
+        winners = Previous_winner.objects.all()
 
-    return render(request, 'scholarshipsModule/submita.html',
+    return render(request, 'scholarshipsModule/scholarships_staff.html',
                   {'mcm': mcm, 'student': student,
                    'awards': awards, 'gold': gold,
-                   'silver': silver, 'dandm': dandm})
+                   'silver': silver, 'dandm': dandm, 'winners': winners})

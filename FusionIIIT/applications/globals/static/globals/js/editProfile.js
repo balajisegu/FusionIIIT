@@ -105,71 +105,24 @@ function editStudent() {
 }
 
 
-
-function editCatalog2() {
-    var buttonValue = $("#editButton2").val()
-    var aboutSpan = $("#aboutSpan2").text().trim();
-
-    if(buttonValue == "Edit") {
-        $("#editButton2").val("Save");
-
-        $("#aboutTextarea2").val(aboutSpan2);
-        $("#aboutTextarea2").show();
-        $("#aboutSpan2").hide();
-    }
-
-    else if($("#editButton2").val("Save")) {
-        $("#editButton2").val("Edit");
-
-        var aboutSpan = $("#aboutTextarea2").val().trim();
-        $("#aboutSpan2").text(aboutSpan2);
-        $("#aboutTextarea2").hide();
-        $("#aboutSpan2").show();
-    }
-}
-
-function editCatalog3() {
-    var buttonValue = $("#editButton3").val()
-    var aboutSpan = $("#aboutSpan3").text().trim();
+function editCatalog() {
+    var buttonValue = $("#editButton").val()
+    var aboutSpan = $("#aboutSpan").text().trim();
 
     if(buttonValue == "Edit") {
-        $("#editButton3").val("Save");
+        $("#editButton").val("Save");
 
-        $("#aboutTextarea3").val(aboutSpan3);
-        $("#aboutTextarea3").show();
-        $("#aboutSpan3").hide();
+        $("#aboutTextarea").val(aboutSpan);
+        $("#aboutTextarea").show();
+        $("#aboutSpan").hide();
     }
 
-    else if($("#editButton3").val("Save")) {
-        $("#editButton3").val("Edit");
+    else if($("#editButton").val("Save")) {
+        $("#editButton").val("Edit");
 
-        var aboutSpan = $("#aboutTextarea3").val().trim();
-        $("#aboutSpan3").text(aboutSpan3);
-        $("#aboutTextarea3").hide();
-        $("#aboutSpan3").show();
-    }
-}
-
-function editCatalog4() {
-    var buttonValue = $("#editButton4").val()
-    var aboutSpan = $("#aboutSpan4").text().trim();
-
-    if(buttonValue == "Edit") {
-        $("#editButton4").val("Save");
-
-        $("#aboutTextarea4").val(aboutSpan4);
-        $("#aboutTextarea4").show();
-        $("#aboutSpan4").hide();
-    }
-
-    else if($("#editButton4").val("Save")) {
-        $("#editButton4").val("Edit");
-
-        var aboutSpan = $("#aboutTextarea4").val().trim();
-        $("#aboutSpan4").text(aboutSpan4);
-        $("#aboutTextarea4").hide();
-        $("#aboutSpan4").show();
+        var aboutSpan = $("#aboutTextarea").val().trim();
+        $("#aboutSpan").text(aboutSpan);
+        $("#aboutTextarea").hide();
+        $("#aboutSpan").show();
     }
 }
-
-
