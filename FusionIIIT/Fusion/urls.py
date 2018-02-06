@@ -30,10 +30,7 @@ urlpatterns = [
     url(r'^leave/', include('applications.leave.urls')),
     url(r'^placement/', include('applications.placement_cell.urls')),
     url(r'^healthcenter/', include('applications.health_center.urls')),
-<<<<<<< HEAD
-=======
     url(r'^gymkhana/', include('applications.gymkhana.urls')),
->>>>>>> e3ac96ceedffd47377b5269957e46456f777ea3b
     url(r'^spacs/', include('applications.scholarships.urls')),
     url(r'^visitorhostel/', include('applications.visitor_hostel.urls')),
     url(r'^admin/', admin.site.urls),
