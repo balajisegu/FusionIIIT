@@ -8,51 +8,52 @@
     </div>
 
     <div class="ui active tab" data-tab="catalog">
+
         <div class="ui vertical segment">
 
             <div class="ui stackable doubling grid">
                 <div class="four wide column">
                     <div class="ui secondary vertical pointing menu">
-                        <a class="active item" data-tab="award1">
+                        <div id="select_award">
+                        <a class="active item" data-tab="Mcm" >
                             Award #1
                         </a>
 
-                        <a class="item" data-tab="award2">
+                        <a class="item" data-tab="D&M Proficiency">
                             Award #2
                         </a>
 
-                        <a class="item" data-tab="scholarship1">
+                        <a class="item" data-tab="Silver medal">
                             Scholarship #1
                         </a>
 
-                        <a class="item" data-tab="scholarship2">
+                        <a class="item" data-tab="Gold medal">
                             Scholarship #2
                         </a>
+                        </div>
                     </div>
                 </div>
 
                 <div class="eleven wide column">
-                    <div class="ui active tab" data-tab="award1">
-                        <h4 class="ui dividing header" style="margin-bottom: 16px;">
-                            Award #1
+                    <form class="ui form" id="award1">{% csrf_token %}
+                        <div class="ui active tab" data-tab="award1">
+                            <h4 class="ui dividing header" style="margin-bottom: 16px;">
+                                Award #1
 
-                            <input type="button"
-                                   id="editButton"
-                                   class="ui red mini button right floated" onclick="editCatalog()"  value = "Edit">
-                            </input>
-                        </h4>
+                                <input type="button" id="editButton"
+                                       class="ui red mini button right floated" onclick="editCatalog()" value = "Edit"/>
+                            </h4>
 
-                        <span id="aboutSpan">
-                            Sample Data about the Award!
-                        </span>
+                            <span id="aboutSpan">
+                                Sample Data about the Award!
+                            </span>
 
-                        <div class="textarea">
-                            <textarea rows=5
-                                      type="text"
-                                      style="width: 100%;"
-                                      id="aboutTextarea" hidden></textarea>
+                            <div class="textarea">
+                                <textarea rows=5  style="width: 100%;"  id="aboutTextarea" hidden></textarea>
+                            </div>
                         </div>
-                    </div>
+                    </form>
+                </div>
 
                     <div class="ui tab" data-tab="award2">
                         Make like Above!
@@ -62,5 +63,5 @@
             </div>
 
         </div>
-    </div>
+
 {% endblock %}

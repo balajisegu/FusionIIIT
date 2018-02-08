@@ -85,7 +85,7 @@
                       </div>
                       <div class="ui tab segment" data-tab="four">
                         {% block browsecatalogue %}
-                                    {% include 'scholarshipsModule/catalogue.html' %}
+                                    {% include 'scholarshipsModule/browsecatalogue.html' with awards=awards %}
                        {% endblock %}
                   </div>
                 {% comment %}The Publications about view mcm details ends here!{% endcomment %}

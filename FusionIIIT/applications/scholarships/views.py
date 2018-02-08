@@ -7,7 +7,7 @@
 # from django.shortcuts import render
 
 import datetime
-
+import json
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
 # Create your views here.
@@ -26,7 +26,7 @@ from .models import (Award_and_scholarship, Constants, Director_gold,
 @login_required(login_url='/accounts/login')
 def spacs(request):
     # context = {}
-    usertype = request.user.extrainfo.designation
+    usertype = request.user.holdsdesignation.designation
     convener = Designation.objects.get(name='spacsconvenor')
     assistant = Designation.objects.get(name='spacsassistant')
     if request.user.extrainfo.user_type == 'student':
@@ -159,7 +159,7 @@ def convener_view(request):
                    'spi': spi, 'student': student, 'winners': winners, 'release': release,
                    'gold': gold, 'silver': silver, 'dandm': dandm}
                    
-    return render(request, 'scholarshipsModule/scholarships_convener.html',context)
+        return render(request, 'scholarshipsModule/scholarships_convener.html',context)
 
 
 @login_required(login_url='/accounts/login')
@@ -264,7 +264,7 @@ def student_view(request):
         gold = Director_gold.objects.all()
         silver = Director_silver.objects.all()
         dandm = Proficiency_dm.objects.all()
-    return render(request, 'scholarshipsModule/scholarships_student.html',
+        return render(request, 'scholarshipsModule/scholarships_student.html',
                   {'mcm': mcm, 'time': time, 'ch': ch, 'awards': awards, 'spi': spi,
                    'student': student, 'winners': winners, 'release': release,
                    'gold': gold, 'silver': silver, 'dandm': dandm})
@@ -317,7 +317,37 @@ def staff_view(request):
         awards = Award_and_scholarship.objects.all()
         winners = Previous_winner.objects.all()
 
-    return render(request, 'scholarshipsModule/scholarships_staff.html',
+        return render(request, 'scholarshipsModule/scholarships_staff.html',
                   {'mcm': mcm, 'student': student,
                    'awards': awards, 'gold': gold,
                    'silver': silver, 'dandm': dandm, 'winners': winners})
+
+
+def convener_catalogue(request):
+    if request.method == 'POST':
+        award_name=request.POST.get('award_name')
+        catalog_content=request.POST.get('catalog_content')
+        print(award_name)
+        print(catalog_content)
+        context = {}
+        try:
+            award=Award_and_scholarship.objects.get(award_name=award_name)
+            award.catalog=catalog_content
+            award.save()
+            context['result']='Success'
+        except:
+            context['result']='Failure'
+        return HttpResponse(json.dumps(context), content_type='convener_catalogue/json')
+
+    else:
+        award_name=request.GET.get('award_name')
+        print(award_name)
+        context = {}
+        try:
+            award = Award_and_scholarship.objects.get(award_name=award_name)
+            context['catalog']=award.catalog
+            context['result'] = 'Success'
+        except:
+            context['result'] = 'Failure'
+        return HttpResponse(json.dumps(context), content_type='convener_catalogue/json')
+
