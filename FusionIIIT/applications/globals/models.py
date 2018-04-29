@@ -62,11 +62,11 @@ class Designation(models.Model):
 class HoldsDesignation(models.Model):
 	user = models.ForeignKey(User,related_name='holds_designations',on_delete=models.CASCADE)
 	working = models.ForeignKey(User,related_name='current_designation')
-	desigantion = models.ForeignKey(Designation,related_name='designees',on_delete=models.CASCADE)
+	designation = models.ForeignKey(Designation,related_name='designees',on_delete=models.CASCADE)
 	held_at=models.DateTimeField(auto_now=True)
 	
 	def __str__(self):
-		return '{} is {}'.format(self.user.username,self.desigantion)
+		return '{} is {}'.format(self.user.username,self.designation)
 		
 		
 class DepartmentInfo(models.Model):
